@@ -5,7 +5,7 @@ You need to have Gnuplot installed and the path to Gnuplot must be in your PATH 
 
 `gem install narray`
 
-SimpleGnuplot hat built-in support for NArray data sets.
+SimpleGnuplot has built-in support for NArray data sets.
 As of today, narray is always required. This may change in the future.
 
 ## Usages
