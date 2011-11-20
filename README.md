@@ -1,6 +1,7 @@
 # Simple Gnuplot
 
 ## Prerequisites
+You need to have Gnuplot installed and the path to Gnuplot must be in your PATH environment variable.
 
 `gem install narray`
 
@@ -30,7 +31,7 @@ Gnuplot.open do |gnuplot|
 	gnuplot.xrange = [0, 6]
 	gnuplot.yrange = [0, 30]
 	
-	gnuplot.title = "Sine wave"
+	gnuplot.title = "Plot from data set"
 	
 	# Construct a data set.
 	# Provide it in a format, Gnuplot is able to read.
@@ -56,7 +57,7 @@ Gnuplot.open do |gnuplot|
 	gnuplot.xrange = [0, 6]
 	gnuplot.yrange = [0, 30]
 	
-	gnuplot.title = "Sine wave"
+	gnuplot.title = "Plot from NArray data set"
 	
 	array = NArray.float(2, 10).indgen
 
