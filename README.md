@@ -10,7 +10,7 @@ As of today, narray is always required. This may change in the future.
 ## Usages
 
 ### Using build-in functions
-
+```ruby
 Gnuplot.open do |gnuplot|
 	gnuplot.xrange = [0, 2 * Math::PI]
 	gnuplot.yrange = [-1, 1]
@@ -22,10 +22,10 @@ Gnuplot.open do |gnuplot|
 	# Freeze the plot window until it is clicked
 	gnuplot.hold
 end
-
+```
 
 ### Using a data set
-
+```ruby
 Gnuplot.open do |gnuplot|
 	gnuplot.xrange = [0, 6]
 	gnuplot.yrange = [0, 30]
@@ -48,9 +48,10 @@ E
 	# Freeze the plot window until it is clicked
 	gnuplot.hold
 end
+```
 
 ### Using a NArray data set
-
+```ruby
 Gnuplot.open do |gnuplot|
 	gnuplot.xrange = [0, 6]
 	gnuplot.yrange = [0, 30]
@@ -76,3 +77,4 @@ Gnuplot.open do |gnuplot|
 	# Freeze the plot window until it is clicked
 	gnuplot.hold
 end
+```
