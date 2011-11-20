@@ -1,3 +1,6 @@
+require 'narray'
+require './NArray_Extensions.rb'
+
 class Gnuplot
 	attr_accessor :synchronize
 	attr_accessor :debug
