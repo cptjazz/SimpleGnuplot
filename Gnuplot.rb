@@ -1,5 +1,6 @@
 require 'narray'
 require './NArray_Extensions.rb'
+require './Gnuplot_Commands.rb'
 
 class Gnuplot
   attr_accessor :synchronize
@@ -55,9 +56,9 @@ class Gnuplot
     g
   end
 
-  def load(script)
-    send(%Q{l "#{script}"})
-  end
+
+  include GnuplotCommands
+
 
   def terminal=(args)
     if args.length == 2
@@ -74,62 +75,8 @@ class Gnuplot
     @replot_not_first_plot = false
   end
 
-  def xlabel=(text)
-    send(%Q{se xl "#{text}"})
-  end
 
-  def ylabel=(text)
-    send(%Q{se yl "#{text}"})
-  end
 
-  def y2label=(text)
-    send(%Q{se y2l "#{text}"})
-  end
-
-  def ytics=(args)
-    send("se yti #{args[0]}, #{args[1]}")
-  end
-
-  def y2tics=(args)
-    send("se y2ti #{args[0]}, #{args[1]}")
-    send("se yti nomi")
-  end
-
-  def xrange=(args)
-    send "se xr [#{args[0]}:#{args[1]}]"
-  end
-
-  def yrange=(args)
-    send "se yr [#{args[0]}:#{args[1]}]"
-  end
-
-  def y2range=(args)
-    send "se y2r [#{args[0]}:#{args[1]}]"
-  end
-
-  def set_log(text)
-    send("se log #{text}")
-  end
-
-  def unset_log(text = "")
-    send("uns log #{text}")
-  end
-
-  def set(arg)
-    send("se #{arg}")
-  end
-
-  def unset(arg)
-    send("uns #{arg}")
-  end
-
-  def title=(t)
-    send(%Q{se tit "#{t}"})
-  end
-
-  def pause(l = -1)
-    send("pa #{l}")
-  end
 
   def unset_output
     send("uns out")
@@ -254,9 +201,7 @@ class Gnuplot
     @temp_data = nil
   end
 
-  def replot
-    send("re")
-  end
+
 
   def send(command)
     @stream << (command << "\n")
@@ -268,7 +213,7 @@ class Gnuplot
   end
 
   def close
-    send("exit")
+    exit
     @stream.close
   end
 end
