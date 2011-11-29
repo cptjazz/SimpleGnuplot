@@ -1,20 +1,20 @@
 module GnuplotCommands
 
-	def _internal_set(k, v)
-		send "se #{k} #{v}"
-	end
-	private :_internal_set
-	
-	def _escape(text)
-		text.gsub('"', '\"')
-	end
-	
-	def _quote(text)
-		%Q{"#{text}"}
-	end
+  def _internal_set(k, v)
+    send "se #{k} #{v}"
+  end
+  private :_internal_set
+
+  def _escape(text)
+    text.gsub('"', '\"')
+  end
+
+  def _quote(text)
+    %Q{"#{text}"}
+  end
 
   def xlabel=(text)
-		_internal_set :xl, _quote(_escape(text))
+    _internal_set :xl, _quote(_escape(text))
   end
   alias :x_label= :xlabel=
 
