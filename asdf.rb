@@ -1,6 +1,6 @@
 require 'narray'
 require './NArray_Extensions.rb'
-require './Gnuplot_Commands.rb'
+require './gnuplot_commands.rb'
 
 class Gnuplot
   attr_accessor :synchronize
