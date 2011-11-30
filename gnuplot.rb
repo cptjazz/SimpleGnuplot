@@ -1,9 +1,9 @@
 require 'narray'
+require 'thread'
 require './NArray_Extensions.rb'
 require './gnuplot_commands.rb'
 
 class Gnuplot
-  attr_accessor :synchronize
   attr_accessor :debug
   attr_accessor :replot
 
@@ -16,11 +16,11 @@ class Gnuplot
     else
       @stream = IO.popen(@gnuplot_path, "w")
       @is_process = true
-      @stream.sync = true
     end
 
     @temp_files = []
-    sleep 0.5
+
+    start_consumer
   end
 
   def Gnuplot.open(gnuplot_path = "gnuplot", &lambda)
@@ -57,6 +57,18 @@ class Gnuplot
   end
 
 
+  def start_consumer
+    @queue = Queue.new
+
+    @consumer_thread = Thread.new do
+
+      while(command = @queue.pop)
+        @stream << command
+        @stream.flush
+      end
+    end
+  end
+
   include GnuplotCommands
 
 
@@ -74,8 +86,6 @@ class Gnuplot
     send(%Q{se out "#{filename}"})
     @replot_not_first_plot = false
   end
-
-
 
 
   def unset_output
@@ -176,12 +186,6 @@ class Gnuplot
   def splot(args)
     a = prepare_plot_command(args)
     send(%Q{sp "#{@temp_data ? '-' : @in_file}" #{a}})
-
-    if @is_process and @synchronize
-      send("pr 1")
-      tmp = @stream.readpartial(1)
-      puts tmp
-    end
   end
 
   def multisplot(arr)
@@ -201,10 +205,8 @@ class Gnuplot
     @temp_data = nil
   end
 
-
-
   def send(command)
-    @stream << (command << "\n")
+    @queue.push (command << "\n")
   end
   private :send
 
@@ -213,7 +215,10 @@ class Gnuplot
   end
 
   def close
-    exit
+    while @queue.length > 0
+      # waiting until all queued commands are processed
+    end
+
     @stream.close
   end
 end
