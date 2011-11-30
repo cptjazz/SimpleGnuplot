@@ -102,4 +102,9 @@ module GnuplotCommands
   def exit
     send("exit")
   end
+
+
+  def hold
+    send "pa mouse"
+  end
 end

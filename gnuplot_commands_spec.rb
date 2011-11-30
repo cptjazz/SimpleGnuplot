@@ -54,10 +54,10 @@ describe "GnuplotCommands" do
 
   it "should set plot title" do
     helper.title = "Asdf"
-    helper.last_command.should == 'se ti "Asdf"'
+    helper.last_command.should == 'se tit "Asdf"'
 
     helper.title = 'I has "quotes"'
-    helper.last_command.should == 'se ti "I has \"quotes\""'
+    helper.last_command.should == 'se tit "I has \"quotes\""'
   end
 
   def _set_tics_helper(axis)
