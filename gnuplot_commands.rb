@@ -85,7 +85,7 @@ module GnuplotCommands
 
 
   def title=(t)
-    _internal_set :ti, _quote(_escape(t))
+    _internal_set :tit, _quote(_escape(t))
   end
 
 
