@@ -4,7 +4,6 @@ require './NArray_Extensions.rb'
 require './gnuplot_commands.rb'
 
 class Gnuplot
-  attr_accessor :debug
   attr_accessor :replot
 
   def initialize(gnuplot_path = "pgnuplot", dump_file = nil)
@@ -210,9 +209,6 @@ class Gnuplot
   end
   private :send
 
-  def hold
-    send "pa mouse"
-  end
 
   def close
     while @queue.length > 0
