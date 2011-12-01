@@ -138,7 +138,7 @@ class Gnuplot
   end
   private :prepare_plot_command
 
-  def _plot_command
+  def get_plot_command
     if @replot
       cmd = @replot_not_first_plot ? 'rep' : 'p'
       @replot_not_first_plot = true
@@ -153,9 +153,9 @@ class Gnuplot
     a = prepare_plot_command(args)
 
     if args.has_key? :f
-      send(%Q{#{_plot_command} #{args[:f]} #{a}})
+      send(%Q{#{get_plot_command} #{args[:f]} #{a}})
     else
-      send(%Q{#{_plot_command} "#{@temp_data ? '-' : @in_file}" #{a}})
+      send(%Q{#{get_plot_command} "#{@temp_data ? '-' : @in_file}" #{a}})
     end
 
     if @temp_data
@@ -170,7 +170,7 @@ class Gnuplot
     end
 
     a = a.join(', "" ')
-    send(%Q{#{_plot_command} "#{@temp_data ? '-' : @in_file}" #{a}})
+    send(%Q{#{get_plot_command} "#{@temp_data ? '-' : @in_file}" #{a}})
 
 
     arr.length.times do

@@ -1,32 +1,32 @@
 module GnuplotCommands
 
-  def _internal_set(k, v)
+  def internal_set(k, v)
     send "se #{k} #{v}"
   end
-  private :_internal_set
+  private :internal_set
 
-  def _escape(text)
+  def escape(text)
     text.gsub('"', '\"')
   end
 
-  def _quote(text)
+  def quote(text)
     %Q{"#{text}"}
   end
 
   def xlabel=(text)
-    _internal_set :xl, _quote(_escape(text))
+    internal_set :xl, quote(escape(text))
   end
   alias :x_label= :xlabel=
 
 
   def ylabel=(text)
-    _internal_set :yl, _quote(_escape(text))
+    internal_set :yl, quote(escape(text))
   end
   alias :y_label= :ylabel=
 
 
   def y2label=(text)
-    _internal_set :y2l, _quote(_escape(text))
+    internal_set :y2l, quote(escape(text))
   end
   alias :y2_label= :y2label=
 
@@ -80,12 +80,12 @@ module GnuplotCommands
 
 
   def load(script)
-    send(%Q{l "#{script}"})
+    send(%Q{l "#{escape(script)}"})
   end
 
 
   def title=(t)
-    _internal_set :tit, _quote(_escape(t))
+    internal_set :tit, quote(escape(t))
   end
 
 
