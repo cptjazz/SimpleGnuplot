@@ -10,7 +10,7 @@ As of today, narray is always required. This may change in the future.
 
 ## Usages
 
-### Using build-in functions
+### Using built-in functions
 ```ruby
 Gnuplot.open do |gnuplot|
 	gnuplot.xrange = [0, 2 * Math::PI]
